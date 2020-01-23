@@ -1,0 +1,180 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> Formulário Lanchonete </title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<script language="JavaScript" src="JS/jspdf.min.js"></script>
+		<script language="JavaScript" src="JS/mostrar.js"></script>
+		<script language="JavaScript" src="JS/bebidaGelada.js"></script>
+		<script language="JavaScript" src="JS/LimparCampo.js"></script>
+		<script language="JavaScript" src="JS/Pedido.js"></script>
+		<script language="JavaScript" src="JS/pdf.js"></script>
+
+	</head>
+
+	<body>
+		<ul class="nav">
+			<li class="nav-item"><a class="nav-link active" href="#">Arquivo</a>
+			<li class="nav-item"><a class="nav-link" href="#">Sobre</a>
+		</ul>
+		
+			<fieldset class="border p-2">
+				<legend class="w-auto"> Ações </legend>
+				<button type="button" class="btn btn-light" onclick="pedido()"> Fazer Pedido </button>
+				<button type="button" class="btn btn-light" onclick="pdf()"> Salvar Pedido </button>
+				<button type="button" class="btn btn-light" onclick="limpar()"> Limpar Campos </button>
+				<button type="button" class="btn btn-light"> Exibir Pedido </button>
+				<button type="button" class="btn btn-light"> Minimizar </button>
+				<button type="button" class="btn btn-light" onclick="window.print()"> Imprimir </button>
+				<button type="button" class="btn btn-light" onclick="window.close()">  Sair </button>
+			</fieldset>
+	
+		<div class="container-fluid">
+			<form class="form-group" id="formularioPedido">
+				<div id="esquerda" class="row">
+					<div class="col-sm-7">
+						<div id="Dados">
+							<fieldset class="border p-2">
+								<legend class="w-auto"> Dados </legend>
+								<label for="nome"> Nome do Cliente</label>
+								<input class="form-control" name="nome" type="text" id="nome"></input>
+								<br>
+								<label for="code"> Código do Pedido</label>
+								<input class="form-control" name="code" type="text" id="code" disabled></input>
+							</fieldset>
+						</div>
+				
+						<div class="row">
+							<div class="col-sm-8">
+								<fieldset class="border p-2">
+									<legend class="w-auto"> Tipos de Lanche </legend>
+										<select class="form-control" id="lanche">
+											<label for="lanche"></label>
+												<option value="" selected> Tipo de Lanche </option>
+												<option value="Cachorro Quente"> Cachorro Quente </option>
+												<option value="Misto Quente"> Misto Quente </option>
+												<option value="Hamburguer"> Hamburguer </option>
+												<option value="X-Tudo"> X-Tudo </option>
+										</select>
+								</fieldset>
+							</div>
+							
+							<div id="add" class="col-sm-4">
+								<fieldset class="border p-2">
+									<legend class="w-auto"> Adicionais </legend>
+										<label for="yesadd"> Sim </label>
+										<input type="radio" name="opcao" value="Sim" id="yesadd" onclick="mostrar()"></input>
+										<label for="noadd"> Não </label>
+										<input type="radio" name="opcao" value="Não" id="noadd" onclick="mostrar()"></input>
+								</fieldset>
+							</div>
+						</div>
+							
+							<div class="row">
+								<div class="col-sm-8">
+									<div class="row">
+										<div id="bebida" class="col-sm-6">
+										<fieldset class="border p-2">
+											<legend class="w-auto"> Bebidas </legend>
+												<label for="bebida"> Sim </label>
+												<input type="radio" name="bebida" value="Sim" id="yesbg" onclick="bebidaGelada()"></input>
+												<label for="bebida"> Não </label>
+												<input type="radio" name="bebida" value="Não" id="nobg" onclick="bebidaGelada()"></input>
+										</fieldset>
+										</div>
+										
+										<div class="col-sm-6">
+										<fieldset id=bg class="border p-2" disabled>
+											<legend class="w-auto"> Bebida Gelada? </legend>
+												<label for="BebidaGelada"> Sim </label>
+												<input type="radio" name="BebidaGelada" id="gelada" value="Sim"></input>
+												<label for="BebidaGelada"> Não </label>
+												<input type="radio" name="BebidaGelada" id="naogelada" value="Não"></input>
+										</fieldset>
+										</div>
+									</div>
+								
+										<fieldset class="border p-2">
+											<legend class="w-auto"> Tipos de Bebidas </legend>
+												<select class="form-control" name="bebida">
+													<label for="bebida"></label>
+														<option value="" selected> Selecione uma Bebida </option>
+														<option value="Coca-Cola" id="CC"> Coca-Cola </option>
+														<option value="Sprite" id="SP"> Sprite </option>
+														<option value="Fanta laranja" id="FL"> Fanta laranja </option>
+														<option value="Guaraná" id="GU"> Guaraná </option>
+												</select>
+										</fieldset>
+										
+									<div class="row">
+										<div class="col-sm-12">
+											<fieldset class="border p-2">
+												<legend class="w-auto"> Data do pedido </legend>
+													<label for="data"></label>
+													<input class="form-control" type="date" name="data" id="dt"></input>
+											</fieldset>
+										</div>
+									</div>
+								</div>
+									
+								<div id="molho" style="display: none" class="col-sm-4">		
+									<fieldset class="border p-2">
+										<legend class="w-auto"> Adicionais </legend>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="1"
+												value="Catchup" name="topping">
+												<label class="form-check-label" for="1">Catchup</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="2"
+												value="Mostarda" name="topping">
+												<label class="form-check-label" for="2">Mostarda</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="3"
+												value="Maionese" name="topping">
+												<label class="form-check-label" for="3">Maionese</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="4"
+												value="Batata Palha" name="topping">
+												<label class="form-check-label" for="4">Batata Palha</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="5"
+												value="Molho" name="topping">
+												<label class="form-check-label" for="5">Molho</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="6"
+												value="Pimenta" name="topping">
+												<label class="form-check-label" for="6">Pimenta</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="7"
+												value="Purê" name="topping">
+												<label class="form-check-label" for="7">Purê</label>
+											</div>
+									</fieldset>
+								</div>	
+							</div>
+						
+							<fieldset class="border p-2">
+								<legend class="w-auto"> Obeservações </legend>
+									<textarea class="form-control" type="text" rows="3" id="obs"></textarea>
+							</fieldset>
+					</div>
+					
+					<div class="col-sm-5">
+						<fieldset class="border p-2">
+							<legend class="w-auto"> Pedido: </legend>
+								<textarea id="texto" class="form-control" type="text" rows="30" disabled>===== Dados do Pedido =====</textarea>
+						</fieldset>
+					</div>
+					
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
